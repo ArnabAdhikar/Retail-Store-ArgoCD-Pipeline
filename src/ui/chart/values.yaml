@@ -83,7 +83,7 @@ app:
       # apiKey: ""
 ## Ingress for NGINX Ingress Controller
 ingress:
-  enabled: false
+  enabled: true
   className: "nginx"
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
@@ -112,7 +112,7 @@ ingresses:
   - name: domain
     className: "nginx"
     hosts:
-      - retail-store.trainwithshubham.com
+      - retail_store.arnaba075.com
     annotations:
       nginx.ingress.kubernetes.io/ssl-redirect: "true"
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
@@ -124,12 +124,12 @@ ingresses:
     tls:
       - secretName: tls-secret
         hosts:
-          - retail-store.trainwithshubham.com
+          - retail_store.arnaba075.com
 
 # Cert Manager Configuration
 certManager:
   createClusterIssuer: true
-  email: trainwithshubham@gmail.com
+  email: admin@arnaba075.com
   clusterIssuerName: "letsencrypt-prod"
   server: "https://acme-v02.api.letsencrypt.org/directory"
   privateKeySecretName: "letsencrypt-prod-key"
