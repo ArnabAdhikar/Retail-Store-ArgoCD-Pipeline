@@ -8,7 +8,7 @@ metadata:
 spec:
   project: retail-store
   source:
-    repoURL: https://github.com/LondheShubham153/retail-store-sample-app
+    repoURL: "https://github.com/ArnabAdhikar/Retail-Store-ArgoCD-Pipeline.git"
     targetRevision: main
     path: src/ui/chart
     helm:
@@ -22,4 +22,4 @@ spec:
       prune: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=true 
+      - CreateNamespace=true
