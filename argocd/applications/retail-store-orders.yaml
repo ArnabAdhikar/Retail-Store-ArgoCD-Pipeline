@@ -9,7 +9,7 @@ spec:
   project: retail-store
   source:
     repoURL: "https://github.com/ArnabAdhikar/Retail-Store-ArgoCD-Pipeline.git"
-    targetRevision: main
+    targetRevision: gitops
     path: src/orders/chart
     helm:
       valueFiles:
