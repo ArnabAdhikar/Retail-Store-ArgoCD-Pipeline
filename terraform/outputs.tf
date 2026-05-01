@@ -119,3 +119,51 @@ output "useful_commands" {
     describe_cluster    = "kubectl cluster-info"
   }
 }
+
+# =============================================================================
+# GITOPS IAM USER OUTPUTS
+# =============================================================================
+
+output "gitops_user_arn" {
+  description = "ARN of the dedicated GitOps IAM user"
+  value       = aws_iam_user.gitops_user.arn
+}
+
+output "gitops_user_name" {
+  description = "Name of the dedicated GitOps IAM user"
+  value       = aws_iam_user.gitops_user.name
+}
+
+output "gitops_access_key_id" {
+  description = "AWS Access Key ID for the GitOps user — add this as GitHub Secret AWS_ACCESS_KEY_ID"
+  value       = aws_iam_access_key.gitops_user_key.id
+  sensitive   = true
+}
+
+output "gitops_secret_access_key" {
+  description = "AWS Secret Access Key for the GitOps user — add this as GitHub Secret AWS_SECRET_ACCESS_KEY. TREAT AS SENSITIVE."
+  value       = aws_iam_access_key.gitops_user_key.secret
+  sensitive   = true
+}
+
+output "gitops_retrieve_credentials_commands" {
+  description = "Commands to retrieve GitOps credentials from SSM (use these to populate GitHub Secrets)"
+  value = {
+    get_access_key_id     = "aws ssm get-parameter --name /gitops/cicd/access-key-id --with-decryption --query Parameter.Value --output text"
+    get_secret_access_key = "aws ssm get-parameter --name /gitops/cicd/secret-access-key --with-decryption --query Parameter.Value --output text"
+    set_github_secret_id  = "gh secret set AWS_ACCESS_KEY_ID --body \"$(aws ssm get-parameter --name /gitops/cicd/access-key-id --with-decryption --query Parameter.Value --output text)\""
+    set_github_secret_key = "gh secret set AWS_SECRET_ACCESS_KEY --body \"$(aws ssm get-parameter --name /gitops/cicd/secret-access-key --with-decryption --query Parameter.Value --output text)\""
+  }
+}
+
+output "gitops_attached_policies" {
+  description = "List of IAM policies attached to the GitOps group"
+  value = {
+    ecr_policy        = aws_iam_policy.ecr_policy.arn
+    eks_policy        = aws_iam_policy.eks_policy.arn
+    kms_policy        = aws_iam_policy.kms_policy.arn
+    elb_vpc_policy    = aws_iam_policy.elb_vpc_readonly_policy.arn
+    ssm_policy        = aws_iam_policy.ssm_readonly_policy.arn
+    deny_guardrail    = aws_iam_policy.gitops_deny_policy.arn
+  }
+}
