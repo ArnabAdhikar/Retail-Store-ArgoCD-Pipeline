@@ -27,7 +27,7 @@ data "kubernetes_service_v1" "ingress_nginx" {
 # 4. Create the Route53 Record
 resource "aws_route53_record" "retail_store" {
   zone_id = data.aws_route53_zone.main.zone_id
-  name    = "retail_store.arnaba075.com"
+  name    = "retail-store.arnaba075.com"
   type    = "CNAME"
   ttl     = 300
   
@@ -45,5 +45,5 @@ resource "aws_route53_record" "retail_store" {
 # Output the URL
 output "application_url" {
   description = "The URL to access the application"
-  value       = "https://retail_store.arnaba075.com"
+  value       = "https://retail-store.arnaba075.com"
 }

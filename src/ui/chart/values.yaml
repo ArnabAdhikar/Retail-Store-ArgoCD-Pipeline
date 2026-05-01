@@ -112,7 +112,7 @@ ingresses:
   - name: domain
     className: "nginx"
     hosts:
-      - retail_store.arnaba075.com
+      - retail-store.arnaba075.com
     annotations:
       nginx.ingress.kubernetes.io/ssl-redirect: "true"
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
@@ -124,7 +124,7 @@ ingresses:
     tls:
       - secretName: tls-secret
         hosts:
-          - retail_store.arnaba075.com
+          - retail-store.arnaba075.com
 
 # Cert Manager Configuration
 certManager:
